@@ -1,0 +1,60 @@
+Functions (Pandas) - 
+1) Read CSV - pd.read_csv(name, seperator)
+2) Sort - df.sort_values('Column name', ascending=True)
+3) Divide into subsets - df.iloc[start : end]
+4) Transpose - df.T
+5) Merge/concat -  
+    First Step is to create array of subsets - arr = [df1, df2, df3]
+    Next use concat function - pd.concat(arr, keys=['X', 'Y', 'Z'])
+
+6) Melt (wide to long) - pd.melt(df, identifier_variables, column_name, Name_for_the_variable_column, Name_for_the_value_column)
+7) Pivot (Long to wide) - df.pivot(New Index, New Columns, Columns to populate new Dataframe)
+8) Drop NA - df.dropna(axis=0 for rows and 1 for columns, inplace=True)
+9) Fill NA - df.fillna(value, axis, inplace)
+10) Is NA - dataset2.isna().sum() to find the number of null values
+11) Unique - dataset2.ChestPain.unique()
+12) Get dummies/Convert text into nums - heart_encoding = pd.get_dummies(dataset2[['ChestPain', 'Thal', 'AHD']])
+13) Concat - heart_final = pd.concat([dataset2, heart_encoding],1)
+14) Crosstab - pd.crosstab(heart_final.AHD_Yes,heart_final.Sex)
+15) Datatypes - df.dtypes 
+16) Max - df.max()
+
+---------------------------------------------------------------------------------------------
+Functions (sklearn)
+1) Train Test Split - 
+    i) from sklearn.model_selection import train_test_split
+    ii) X_train,X_test,y_train,y_test=train_test_split(X,Y,test_size=0.2 ,random_state=1)
+2) KNNClssifier - 
+    i) from sklearn.neighbors import KNeighborsClassifier
+    ii) classifier = KNeighborsClassifier(n_neighbors=5, metric="minkowski", p=2)
+    iii) classifier.fit(X_train, y_train)
+3) Predict - y_pred = classifier.predict(X_test)
+4) Confusion Matrix - 
+    i) from sklearn.metrics import confusion_matrix
+    ii) cm = confusion_matrix(y_test, y_pred)
+5) Accuracy score - 
+    i) from sklearn.metrics import accuracy_score
+    ii) accuracy_score()
+6)Logistic Regression -
+    i) from sklearn.linear_model import LogisticRegression
+    ii) LR_model = LogisticRegression()
+    iii) LR_model.fit(X_train_final,y_train)
+    iv) LR_model_y_pred = LR_model.predict(X_test_final)
+    v) LR_model_r2_score = round(r2_score(y_test,LR_model_y_pred)*100,2)
+7) Metrics - 
+    from sklearn.metrics import 
+        i) accuracy_score
+        ii) recall_score
+        iii) precision_score
+        iv) f1_score
+        v) confusion_matrix
+        vi) r2_score
+    
+---------------------------------------------------------------------------------------------
+Plots - 
+Box Plot - df.plot(kind='box', figsize = (20, 20))
+Dist PLot/Histogram - sns.distplot(df['col'])
+LM Plot (scatter + regr) - sns.lmplot(x='Age', y='RestBP', data=dataset2)
+Heatmap - sns.heatmap(dataset2.corr(), annot=True, annot_kws={"size": 14})
+Pairplot - sns.heatmap(dataset2.corr(), annot=True, annot_kws={"size": 14})
+
