@@ -1,0 +1,83 @@
+Hive Commands - 
+
+Databases
+1) Create Database - CREATE DATABASE [IF NOT EXISTS] userdb;
+2) Show Database - SHOW DATABES;
+3) Drop Database - DROP DATABASE IF EXISTS userdb;
+4) Drop Cascade - DROP DATABASE IF EXISTS userdb CASCADE; (It means dropping respective tables before dropping the database.)
+
+Tables
+1) Create Table - CREATE TABLE IF NOT EXISTS employee ( eid int, name String,
+                salary String, destination String)
+2) Alter Table - 
+    i) ALTER TABLE name RENAME TO new_name
+    ii) ALTER TABLE name ADD COLUMNS (col_spec[, col_spec ...])
+    iii) ALTER TABLE name DROP [COLUMN] column_name
+    iv) ALTER TABLE name CHANGE column_name new_name new_type
+    v) ALTER TABLE name REPLACE COLUMNS (col_spec[, col_spec ...])
+3) Drop Table - DROP TABLE IF EXISTS employee;
+4) Insert - INSERT INTO TABLE students VALUES ('fred flintstone', 35, 1.28), ('barney rubble', 32, 2.32); 
+5) Update - UPDATE students SET name = null WHERE gpa <= 1.0; 
+
+Hive Operators - 
+1) SELECT * FROM employee WHERE Id=1205;
+2) SELECT * FROM employee WHERE Salary>=40000;
+3) SELECT * FROM employee WHERE Salary>40000 && Dept=TP;
+
+Hive Functions - 
+1) round
+2) ceil
+3) floor
+4) upper
+5) lower
+
+Hive Views and Indexes - 
+1) CREATE VIEW [IF NOT EXISTS] view_name [(column_name [COMMENT column_comment], ...) ]
+            [COMMENT table_comment]
+            AS SELECT ...
+
+2) CREATE VIEW emp_30000 AS
+        SELECT * FROM employee
+        WHERE salary>30000;
+
+3) Dropping View - DROP VIEW view_name
+
+4) CREATE INDEX index_name
+        ON TABLE base_table_name (col_name, ...)
+        AS 'index.handler.class.name'
+        [WITH DEFERRED REBUILD]
+        [IDXPROPERTIES (property_name=property_value, ...)]
+        [IN TABLE index_table_name]
+        [PARTITIONED BY (col_name, ...)]
+        [
+        [ ROW FORMAT ...] STORED AS ...
+        | STORED BY ...
+        ]
+        [LOCATION hdfs_path]
+        [TBLPROPERTIES (...)]
+
+5) CREATE INDEX inedx_salary ON TABLE employee(salary)
+    AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler';
+
+6) Dropping Index - DROP INDEX index_salary ON employee;
+
+Hive Queries - 
+1) Order By - SELECT Id, Name, Dept FROM employee ORDER BY DEPT;
+2) Group By - SELECT Dept,count(*) FROM employee GROUP BY DEPT; 
+    The above query will give the total count of all unique entries
+
+Join -
+SELECT c.ID, c.NAME, c.AGE, o.AMOUNT 
+    FROM CUSTOMERS c JOIN ORDERS o 
+    ON (c.ID = o.CUSTOMER_ID);
+
+Load From CSV - 
+1) CREATE TABLE IF NOT EXISTS student(
+    Student_Name STRING,
+    Student_Rollno INT,
+    Student_Marks FLOAT)
+    ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY ','; 
+2) LOAD DATA LOCAL INPATH '/home/dikshant/Documents/data.csv' INTO TABLE student;
+
+
